@@ -1,0 +1,61 @@
+<script>
+$(function () {
+	$('#listing-type').on ('change', function (e) {
+		e.preventDefault ();
+
+		var href = $(this).val ();
+		window.location.href = href;
+	});
+});
+</script>
+
+<div class="header e-row-variable">
+	<div class="e-col-50 e-no-padding">
+		{! navigation/pager?style=results&url=[url]&total=[total]&count=[count]&limit=[limit] !}
+
+		{% if User::require_acl ('admin', 'admin/add', 'listings') %}
+			&nbsp;|&nbsp;
+			<a href="/listings/add">{"Add Listing"}</a>
+		{% end %}
+	</div>
+	<div class="e-col-50 e-no-padding" style="text-align: right; padding-right: 10px">
+		<select id="listing-type">
+			<option value="/listings">{"All"}</option>
+			{% foreach types as _type, _name %}
+			<option
+				value="/listings/{{_type}}"
+				{% if _type == $data->type %}selected{% end %}
+			>{{_name}}</option>
+			{% end %}
+		</select>
+	</div>
+</div>
+
+<div class="item-list e-row-variable">
+{% foreach items as _item %}
+	<div class="e-col-33 e-no-padding">
+		<div class="item">
+			<div class="thumbnail-wrapper">
+				<a href="/listings/item/{{_item->id}}/{{_item->name|URLify::filter}}">
+					<div class="thumbnail"
+						{% if _item->thumbnail != '' %}
+							style="background-image: url({{_item->thumbnail}})"
+						{% else %}
+							style="background-image: url({{default_thumbnail}})"
+						{% end %}
+					></div>
+				</a>
+			</div>
+			<div class="item-info">
+				<h4><a href="/listings/item/{{_item->id}}/{{_item->name|URLify::filter}}" title="{{_item->name}}">{{_item->name}}</a></h4>
+				<p>Type: {{listings\Data::type ($data->_item->type)}}</p>
+			</div>
+			<a href="/listings/item/{{_item->id}}/{{_item->name|URLify::filter}}" class="item-link">{"Details"}</a>
+		</div>
+	</div>
+{% end %}
+</div>
+
+{% if total > $data->limit %}
+{! navigation/pager?style=numbers&url=[url]&total=[total]&count=[count]&limit=[limit] !}
+{% end %}

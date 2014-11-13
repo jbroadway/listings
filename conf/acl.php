@@ -1,0 +1,5 @@
+; <?php /*
+
+listings = "Manage listings"
+
+; */ ?>

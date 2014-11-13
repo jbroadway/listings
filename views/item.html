@@ -1,0 +1,32 @@
+<p>
+	<a href="/listings">&laquo; {"All listings"}</a>
+	{% if User::require_acl ('admin', 'admin/edit', 'listings') %}
+		&nbsp;|&nbsp;
+		<a href="/listings/edit?id={{id}}">{"Edit Listing"}</a>
+	{% end %}
+</p>
+
+<div class="summary e-row-equal">
+	<div class="e-col-40 e-no-padding">
+		<div class="thumbnail-wrapper">
+			<div class="thumbnail"
+				{% if thumbnail != '' %}
+					style="background-image: url({{thumbnail}})"
+				{% else %}
+					style="background-image: url({{default_thumbnail}})"
+				{% end %}
+			></div>
+		</div>
+	</div>
+	<div class="summary-info e-col-60 e-no-padding">
+		<div class="summary-info-text">
+			<p><strong>{"Type"}:</strong> {{type|listings\Data::type (%s)}}</p>
+			<p>{{description}}</p>
+		</div>
+		<div class="summary-link">
+			<a href="{{link}}" class="external-link">{"Visit website"}</a>
+		</div>
+	</div>
+</div>
+
+<div class="details">{{ details|none }}</div>
