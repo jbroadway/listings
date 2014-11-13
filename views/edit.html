@@ -1,3 +1,6 @@
+{! admin/util/wysiwyg?field_id=details !}
+{! admin/util/datewidget !}
+
 <div class="form">
 <form method="post" id="{{ _form }}">
 
@@ -32,23 +35,34 @@
 	<span class="notice" id="description-notice">{"Please enter a description."}</span>
 </p>
 <p>
+	{"Details"}:<br />
+	<textarea name="details" id="details">{{ details }}</textarea>
+	<span class="notice" id="details-notice">{"Please enter the details."}</span>
+</p>
+<p>
+	{"Status"}:<br />
+	<select name="status">
+		<option value="">- select -</option>
+{% for _key, _value in listings\Data::statuses () %}
+		<option value="{{_key|quotes}}"{% if _key == $data->status %} selected{% end %}>{{_value}}</option>
+{% end %}
+	</select>
+	<span class="notice" id="status-notice">{"Please choose a status."}</span>
+</p>
+<p>
 	{"User"}:<br />
 	<input type="text" name="user" value="{{ user|quotes }}" />
 	<span class="notice" id="user-notice">{"Please enter a user."}</span>
 </p>
-{! admin/util/datewidget !}
-
 <p>
 	{"Added"}:<br />
 	<input type="text" name="added" class="datewidget-datetime" value="{{ added|quotes }}" />
-	<span class="notice" id="added-notice">{"Please enter a added."}</span>
+	<span class="notice" id="added-notice">{"Please enter a date added."}</span>
 </p>
-{! admin/util/datewidget !}
-
 <p>
 	{"Updated"}:<br />
 	<input type="text" name="updated" class="datewidget-datetime" value="{{ updated|quotes }}" />
-	<span class="notice" id="updated-notice">{"Please enter a updated."}</span>
+	<span class="notice" id="updated-notice">{"Please enter a date updated."}</span>
 </p>
 
 <p><input type="submit" value="{"Save Listing"}" /></p>

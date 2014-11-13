@@ -3,6 +3,7 @@
 [Listings]
 
 title = App/Theme Directory
+menu_title = Apps/Themes
 include_in_nav = On
 
 [Admin]

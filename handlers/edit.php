@@ -16,10 +16,12 @@ echo $form->handle (function ($form) {
 	$listing->link = $_POST['link'];
 	$listing->thumbnail = $_POST['thumbnail'];
 	$listing->type = $_POST['type'];
+	$listing->status = $_POST['status'];
 	$listing->description = $_POST['description'];
 	$listing->user = $_POST['user'];
 	$listing->added = $_POST['added'];
 	$listing->updated = $_POST['updated'];
+	$listing->details = $_POST['details'];
 	$listing->put ();
 
 	if ($listing->error) {

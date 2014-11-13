@@ -10,7 +10,8 @@ $form = new Form ('post', $this);
 $form->data = (object) array (
 	'added' => gmdate ('Y-m-d H:i:s'),
 	'updated' => gmdate ('Y-m-d H:i:s'),
-	'user' => User::val ('id')
+	'user' => User::val ('id'),
+	'status' => 'pending'
 );
 
 echo $form->handle (function ($form) {
@@ -20,10 +21,12 @@ echo $form->handle (function ($form) {
 		'link' => $_POST['link'],
 		'thumbnail' => $_POST['thumbnail'],
 		'type' => $_POST['type'],
+		'status' => $_POST['status'],
 		'description' => $_POST['description'],
 		'user' => $_POST['user'],
 		'added' => $_POST['added'],
-		'updated' => $_POST['updated']
+		'updated' => $_POST['updated'],
+		'details' => $_POST['details']
 	));
 	$listing->put ();
 

@@ -4,7 +4,7 @@ $id = isset ($this->params[0]) ? $this->params[0] : $this->redirect ('/listings'
 
 $item = new listings\Listing ($id);
 
-if ($item->error) {
+if ($item->error || $item->status !== 'approved') {
 	echo $this->error ();
 	return;
 }

@@ -6,8 +6,10 @@ create table #prefix#listings (
 	link char(128) not null,
 	thumbnail char(128) not null,
 	type char(48) not null,
+	status char(48) not null,
 	description text not null,
 	user int not null,
 	added datetime not null,
-	updated datetime not null
+	updated datetime not null,
+	details text not null
 );

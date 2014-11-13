@@ -6,17 +6,17 @@ $page->title = Appconf::listings ('Listings', 'title');
 $page->add_script ('/apps/listings/css/default.css');
 
 $limit = 20;
-$num = isset ($_GET['offset']) ? $_GET['offset'] : 0;
+$num = isset ($_GET['offset']) ? $_GET['offset'] : 1;
 $offset = ($num - 1) * $limit;
 
 $type = isset ($this->params[0]) ? $this->params[0] : false;
 
-$q = listings\Listing::query ();
+$q = listings\Listing::query ()->where ('status', 'approved');
 if ($type) {
 	$q->where ('type', $type);
-	$url = '/listings/' . $type;
+	$url = '/listings/' . $type . '?offset=%d';
 } else {
-	$url = '/listings';
+	$url = '/listings?offset=%d';
 }
 $q->order ('name', 'asc');
 

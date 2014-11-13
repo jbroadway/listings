@@ -9,6 +9,9 @@ not empty = 1
 [type]
 not empty = 1
 
+[status]
+not empty = 1
+
 [description]
 not empty = 1
 
@@ -19,6 +22,9 @@ not empty = 1
 not empty = 1
 
 [updated]
+not empty = 1
+
+[details]
 not empty = 1
 
 ; */ ?>
