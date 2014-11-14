@@ -5,7 +5,7 @@ $page->id = 'listings';
 $page->title = Appconf::listings ('Listings', 'title');
 $page->add_script ('/apps/listings/css/default.css');
 
-$limit = 20;
+$limit = 15;
 $num = isset ($_GET['offset']) ? $_GET['offset'] : 1;
 $offset = ($num - 1) * $limit;
 
