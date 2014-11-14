@@ -10,15 +10,15 @@
 <table width="100%">
 	<tr>
 		<th width="28%">{" Name "}</th>
-		<th width="28%">{" Link "}</th>
-		<th width="28%">{" Thumbnail "}</th>
+		<th width="28%">{" Type "}</th>
+		<th width="28%">{" Status "}</th>
 		<th width="16%">&nbsp;</th>
 	</tr>
 {% foreach items %}
 	<tr>
-		<td>{{ loop_value->name }}</td>
-		<td>{{ loop_value->link }}</td>
-		<td>{{ loop_value->thumbnail }}</td>
+		<td><a href="{{ loop_value->link }}">{{ loop_value->name }}</a></td>
+		<td>{{ loop_value->type|listings\Data::type }}</td>
+		<td>{{ loop_value->status|ucfirst }}</td>
 		<td style="text-align: right">
 			{% if User::require_acl ('admin/edit') %}
 			<a	href="/listings/edit?id={{ loop_value->id }}">{"Edit"}</a>

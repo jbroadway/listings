@@ -1,5 +1,7 @@
 {! admin/util/wysiwyg?field_id=details !}
 {! admin/util/datewidget !}
+{! user/util/userchooser !}
+{! filemanager/util/browser !}
 
 <div class="form">
 <form method="post" id="{{ _form }}">
@@ -9,18 +11,19 @@
 	<input type="text" name="name" size="50" value="{{ name|quotes }}" />
 	<span class="notice" id="name-notice">{"Please enter a name."}</span>
 </p>
+<div id="thumbnail-div">
+	{"Thumbnail"}:<br />
+	<img src="{% if thumbnail == '' %}//:0{% else %}{{thumbnail|quotes}}{% end %}" id="thumbnail-preview" /><br />
+	<input type="hidden" name="thumbnail" id="thumbnail" size="40" value="{{ thumbnail|quotes }}" />
+	<input type="submit" id="thumbnail-browse" value="{"Choose"}" />
+</div>
 <p>
 	{"Link"}:<br />
 	<input type="text" name="link" size="50" value="{{ link|quotes }}" />
 	<span class="notice" id="link-notice">{"Please enter a link."}</span>
 </p>
 <p>
-	{"Thumbnail"}:<br />
-	<input type="text" name="thumbnail" value="{{ thumbnail|quotes }}" />
-	<span class="notice" id="thumbnail-notice">{"Please enter a thumbnail."}</span>
-</p>
-<p>
-	{"Type"}:<br />
+	{"Type"}:
 	<select name="type">
 		<option value="">- select -</option>
 {% for _key, _value in listings\Data::types () %}
@@ -40,7 +43,7 @@
 	<span class="notice" id="details-notice">{"Please enter the details."}</span>
 </p>
 <p>
-	{"Status"}:<br />
+	{"Status"}:
 	<select name="status">
 		<option value="">- select -</option>
 {% for _key, _value in listings\Data::statuses () %}
@@ -50,9 +53,11 @@
 	<span class="notice" id="status-notice">{"Please choose a status."}</span>
 </p>
 <p>
-	{"User"}:<br />
-	<input type="text" name="user" value="{{ user|quotes }}" />
-	<span class="notice" id="user-notice">{"Please enter a user."}</span>
+	{"User"}:
+	<strong id="user-name">{{user|User::field(%s, 'name')}}</strong>
+	<button id="users">{"Choose"}</button>
+	<input type="hidden" name="user" id="user" value="{{ user|quotes }}" />
+	<span class="notice" id="user-notice">{"Please choose a user."}</span>
 </p>
 <p>
 	{"Added"}:<br />
@@ -69,3 +74,45 @@
 
 </form>
 </div>
+
+<style>
+#{{_form}} {
+	position: relative;
+}
+#thumbnail-div {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 150px;
+}
+#thumbnail-preview {
+	width: 150px;
+	height: 100px;
+	margin-bottom: 5px;
+}
+</style>
+
+<script>
+$(function () {
+	$('#users').click (function () {
+		$.userchooser ({
+			set_id_value: '#user',
+			set_name_value: '#user-name'
+		});
+		return false;
+	});
+
+	$('#thumbnail-browse').click (function (e) {
+		e.preventDefault ();
+		$.filebrowser ({
+			allowed: ['jpg', 'jpeg', 'png', 'gif'],
+			set_value: '#thumbnail',
+			title: "{"Choose an image"}",
+			thumbs: true,
+			callback: function (file) {
+				$('#thumbnail-preview').attr ('src', file);
+			}
+		});
+	});
+});
+</script>
