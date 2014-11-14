@@ -11,7 +11,7 @@ $form->data = (object) array (
 	'added' => gmdate ('Y-m-d H:i:s'),
 	'updated' => gmdate ('Y-m-d H:i:s'),
 	'user' => User::val ('id'),
-	'status' => 'pending'
+	'status' => 'approved'
 );
 
 echo $form->handle (function ($form) {
